@@ -1,0 +1,49 @@
+<%- include('partials/header.ejs')%>
+<title>Ajout d'un post</title>
+<meta name="description" content="Page d'ajout de post">
+</head>
+<body>
+	<div class="row">
+		<div class="col s12 m4 offset-m4 center-align">
+			<div class="card">
+				<div class="card-action red lighten-2 white-text">
+                    <h5>Ajouter Post</h5>
+				</div>
+				<div class="card-content">
+					<form action="/addpost" method='POST'>
+						<div class="input-field">
+							<input type="text" name="titlePost" id="titlePost">
+							<label for="titlePost" >Titre</label>
+						</div>
+                        <div class="input-field">
+                            <textarea name="contentPost" id="contentPost"></textarea>
+                            <label for="contentPost">Contenu</label>
+                        </div>
+						<div class="input-field">
+                            <select name="type" id="type" required>
+                                <option value="" disabled selected>Choisissez une Catégorie</option>
+                            <% types.forEach(function(type){ %>
+                                <option value="<%=type.idType%>"><%=type.nameType%></option> 
+                            <% }) %>
+                            </select>
+							<label for="type">Catégorie</label>
+                        </div>
+						<div class="center-align">
+							<button class="btn waves-effect waves-light red lighten-2" type="submit">Ajouter Post</button>
+						</div>
+					</form>
+					<div class="input-field">
+						<a class="" href="/"><button class="btn waves-effect waves-light red lighten-2">Retour</button></a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous" ></script>
+    <script>
+        $(document).ready(function(){
+            $('select').formSelect();
+        });
+    </script>
+    <%- include('partials/footer.ejs')%>

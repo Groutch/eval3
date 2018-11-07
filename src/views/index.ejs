@@ -1,0 +1,83 @@
+<%-include('partials/header.ejs')%>
+<link rel="stylesheet" href="/styles.css">
+<title>Accueil</title>
+<meta name="description" content="Page principale de l'application">
+</head>
+<body>
+
+    <nav class="red lighten-2" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo"><span class="hide-on-small-only">Simplon </span>Alumni</a>
+        <!-- Menu fixe -->
+        <ul class="right hide-on-med-and-down">
+            <!-- peuplons la liste des types de posts -->
+            <% types.forEach(function(type){ %>
+                <li><a href="/filter/<%= type.idType %>"><%=type.nameType%></a></li>
+            <% }) %>
+            <li>
+                <a href="/dashboard"><span class="name"><% if (locals.firstName) %> <%=firstName %> <% if (locals.name) %> <%=name %></span></a>
+            </li>
+            <li><div class="divider"></div></li>
+            <li><a href="/logout" class="btn-flat">Se déconnecter</a></li>
+        </ul>
+        <!-- Menu mobile -->
+        <ul id="nav-mobile" class="sidenav">
+            <li>
+                <div class="user-view">
+                    <div class="background"><img src="https://image.shutterstock.com/image-photo/dark-grunge-textured-wall-closeup-260nw-156679913.jpg"></div>
+                    <img class="circle" src="/img/logo.png">
+                    <a href="/dashboard"><span class="name"><% if (locals.firstName) %> <%=firstName %> <% if (locals.name) %> <%=name %></span>
+                    <span class="email"><% if (locals.mail) %> <%=mail %></span></a>
+                </div>
+            </li>
+            <li><div class="divider"></div></li>
+            <% types.forEach(function(type){ %>
+                <li><a href="/filter/<%= type.idType %>"><%=type.nameType%></a></li>
+            <% }) %>
+            <li><div class="divider"></div></li>
+            <li><a href="/logout" class="btn-flat">Se déconnecter</a></li>
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+    </nav>
+    <div class="container">
+    <% if (locals.posts){ %>
+    <% posts.forEach(function(post){ %>
+    <div class="card">
+        <div class="card-content">
+            <div class="card-title">
+                <%=post.titlePost%>
+                <span class="blog-post-full-cat right">
+                    <a href="/filter/<%= post.idType %>">
+                        <span class="new badge red accent-2" data-badge-caption="<%=post.nameType%>"></span>
+                    </a>
+                </span>
+            </div>
+            <p class="ultra-small"><%=("0"+(post.datePost.getDate()+1)).slice(-2)%>/<%=("0"+(post.datePost.getMonth()+1)).slice(-2)%>/<%=post.datePost.getFullYear()%></p>
+            <p><%=post.contentPost%></p>
+        </div>
+        <div class="card-action">
+            <div class="chip">
+                <img src="https://www.materialui.co/materialIcons/social/person_black_144x144.png" alt="Contact Person" class="cyan"> <%=post.firstName%> <%=post.name%>
+            </div>
+            <a href="/read/<%=post.idPost%>" class="waves-effect waves-teal btn-flat right m-0 p-0">Plus<i class="material-icons right">arrow_forward</i></a>
+        </div>
+    </div>
+    <% }) %>
+    <% } %>
+    </div>
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large red" href="/addpost">
+            <i class="large material-icons">add_circle</i>
+        </a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous" ></script>
+    <script>
+      $(document).ready(function(){
+        $('.sidenav').sidenav();
+      });
+      $(document).ready(function(){
+        $('.fixed-action-btn').floatingActionButton();
+      });
+    </script>
+
+<%-include('partials/footer.ejs')%>

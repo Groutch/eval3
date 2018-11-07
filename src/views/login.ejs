@@ -1,0 +1,57 @@
+<%- include('partials/header.ejs')%>
+<title>Page de connexion</title>
+<meta name="description" content="Page de connexion/enregistrement">
+<title><% if (locals.login) { -%>
+	Se connecter
+	<% }else { -%>S'enregistrer<%}%></title>
+</head>
+<body>
+	<div class="row">
+		<div class="col s12 m4 offset-m4 center-align">
+			<div class="card">
+				<div class="card-action red lighten-2 white-text">
+                    <h5><% if (locals.login) { -%>
+					Se connecter
+					<% }else { -%>S'enregistrer<%}%></h5>
+				</div>
+				<div class="card-content">
+					<form action=<% if (locals.login) { -%>"/login"
+						<% }else {%>"/register"<% } %> method='POST'>
+						<div class="input-field">
+							<input type="email" name="mail" id="mail">
+							<label for="mail">Mail</label>
+						</div>
+						<% if (!locals.login) { -%>
+							<div class="input-field">
+								<input type="text" name="firstName" id="firstName">
+								<label for="firstName">Prénom</label>
+							</div>
+							<div class="input-field">
+								<input type="text" name="name" id="name">
+								<label for="name">Nom</label>
+							</div>
+						<% } -%>
+						<div class="input-field">
+							<input type="password" name="password" id="password">
+							<label for="password">Mot de passe</label>
+						</div>
+						<% if (locals.login) { -%>
+						<div class="center-align">
+							<button class="btn waves-effect waves-light red lighten-2" type="submit">Se connecter</button>
+						</div>	
+						<% }else{ -%>
+						<div class="center-align">
+							<button class="btn waves-effect waves-light red lighten-2" type="submit">S'enregistrer</button>
+						</div>
+						<%}%>
+					</form>
+					<div class="input-field">
+						<a class="" href="/"><button class="btn waves-effect waves-light red lighten-2">Retour</button></a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<%- include('partials/footer.ejs')%>
